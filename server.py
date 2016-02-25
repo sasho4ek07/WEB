@@ -11,4 +11,4 @@ while True:
         elif not data:
             break
         sock.send (data)
-		sock.close ()		
+	sock.close ()		
