@@ -21,7 +21,10 @@ http {
 		root /home/alexander/box/web;
 	}
 	location ^~ /img/ {
-		alias /home/alexander/box/web/public;
+		alias /home/alexander/box/web/public/;
+	}
+	location ^~ / {
+		root /home/alexander/box/web/public;
 	}
 	access_log on;
 	expires 30d;	
