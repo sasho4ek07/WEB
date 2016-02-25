@@ -1,9 +1,9 @@
-import _thread
+import thread
 import socket
-s = socket.socket (socket.AF_INET , socket.SOCK_STREAM)
-s.bind (('', 2222))
-s.listen (11)
 def accep ():
+    s = socket.socket (socket.AF_INET , socket.SOCK_STREAM)
+    s.bind (('', 2222))
+    s.listen (10)
     while True:
         conn, addr = s.accept ()
         while True:
@@ -14,4 +14,4 @@ def accep ():
             elif not data:
                 break
             conn.send (data)
-_thread.start_new_thread(accep())
+thread.start_new_thread(accep())
