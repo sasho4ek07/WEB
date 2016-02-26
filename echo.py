@@ -2,11 +2,11 @@ import socket
 import threading
 
 
-def accep():
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.bind(('', 2222))
-    s.listen(10)
-    conn, addr = s.accept()
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.bind(('', 2222))
+s.listen(10)
+
+def accep(conn):
     while True:
             data = conn.recv(1024)
             msg = data.decode('utf-8')
@@ -19,11 +19,9 @@ def accep():
                 break
             else:
                 conn.send(data)
-    conn.close()
-    return
+    #conn.close()
+    pass
 
 while True:
-    threading.Thread(name='th1', target=accep())
-    threading.Thread(name='th2', target=accep())
-    threading.Thread.start('th1')
-    threading.Thread.start('th2')
+    conn, addr = s.accept()
+    threading.Thread(target=accep(conn), args=(conn))
