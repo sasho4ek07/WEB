@@ -1,7 +1,6 @@
-import socket
-import threading
-
 def accep():
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.bind(('', 2222))
     s.listen(10)
     conn, addr = s.accept()
     while True:
@@ -18,8 +17,9 @@ def accep():
                 conn.send(data)
     conn.close()
     return
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind(('', 2222))
+
 while True:
     threading.Thread(name='th1', target=accep())
     threading.Thread(name='th2', target=accep())
+    threading.Thread.start('th1')
+    threading.Thread.start('th2')
