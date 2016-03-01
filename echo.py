@@ -1,30 +1,33 @@
 import socket
 import threading
 
-def accep():
-    conn, addr = s.accept()
-    while True:
-        #print(conn)
+# Our thread class:
+class ClientThread(threading.Thread):
 
-        data = conn.recv(1024)
-        msg = data.decode('utf-8')
-        print(msg)
-        if not data:
-            break
-        elif msg == "close":
-            conn.close()
-            break
-        else:
-            conn.send(data)
-        print(conn)
-    conn.close()
-    return
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind(('0.0.0.0', 2222))
-s.listen(100)
+    # Override Thread's __init__ method to accept the parameters needed:
+    def __init__(self, conn, details):
+        self.conn = conn
+        self.details = details
+        threading.Thread.__init__(self)
+
+    def run(self):
+            data = self.conn.recv(1024)
+            msg = data.decode('utf-8')
+            print(msg)
+            if not data:
+                conn.close()
+            elif msg == "close":
+                conn.close()
+            else:
+                self.conn.send(data)
+                #print(conn)
+                self.conn.close()
+
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server.bind(('127.0.0.1', 2222))
+server.listen(10)
+
+# Have the server serve "forever":
 while True:
-    #conn = sock
-    #print(conn, sep='\n')
-    #accep(conn)
-    th1 = threading.Thread(accep())
-    th2 = threading.Thread(accep())
+    conn, details = server.accept()
+    ClientThread(conn, details).start()
