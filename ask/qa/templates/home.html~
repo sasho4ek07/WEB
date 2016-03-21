@@ -1,0 +1,24 @@
+{%  extends "base.html" %}
+{%  block title %}
+{{ block.super }} – главная
+{%  endblock %}
+{%  block content %}
+<h2>Новые вопросы</h2>
+{%  for question  in questions %}
+<div class="question">
+<a href="{{ question.get_url }}">{{ question }}</a>
+</div>
+{%  endfor %}
+<nav><ul class="pagination">
+{%  for p  in paginator.page_range %}
+{%  if p == page.number %}
+<li class="active">
+{%  else %}
+<li>
+{%  endif %}
+<a href="/popular{{paginator.baseurl }}{{ p}}">
+{{ p}}</a>
+</li>
+{%  endfor %}
+</ul></nav>
+{%  endblock %}

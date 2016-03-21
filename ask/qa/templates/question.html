@@ -1,0 +1,14 @@
+{%  extends "base.html" %}
+{%  block title %}
+{{ block.super }} – главная
+{%  endblock %}
+{%  block content %}
+<h1>ВОПРОС</h1>
+<div class="question">
+<h2>{{ question.title| truncatechars:80 }}</h2>
+<h3>{{ question.text }} </h3>
+<!-- <p>{{ post.text }}></p>
+	{%  for  comment  in comments %}
+		{%  include "/comment.html" %}
+	{%  endfor %}
+	{%  endblock %}
