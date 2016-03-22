@@ -28,8 +28,8 @@ class  Answer(models.Model):
 	#rating = models.OneToOneField(QRating)
 	def  __unicode__(self):
 		return self.text
-	def  get_absolute_url(self):
-		return '/answer/%d/' % self.id
+	def  get_url(self):
+		return reverse('questions', kwargs={'id': self.id})
 
 	class  Meta:
 		db_table = 'answer'
