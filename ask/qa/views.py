@@ -10,8 +10,10 @@ def test(request, *args, **kwargs):
 @require_GET
 def question (request, id):
 	question = get_object_or_404(Question, id=id)
+	answers = Answer.objects.filter(question_id=id)
 	return render(request, 'question.html', {
 	'question': question,
+	'answers': answers,
 	}) 
 
 def home(request):

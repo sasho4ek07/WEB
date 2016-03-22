@@ -13,24 +13,23 @@ class  Question(models.Model):
 	def  __unicode__(self):
 		return self.title
 	def  get_url(self):
-		return '/question/%d/' % self.pk
+		return '/question/%d/' % self.id
 
 	class  Meta:
 		db_table = 'question'
-		ordering = ['-added_at']
+		ordering = ['-id']
 
 class  Answer(models.Model):
+	question = models.ForeignKey(Question, null= True, on_delete=models.SET_NULL, related_name='question_set')
 	text = models.TextField()
 	added_at = models.DateTimeField(auto_now_add = True)
-	question = models.OneToOneField(Question)
-	#rating = models.OneToOneField(QRating)
 	author = models.ForeignKey(User)
 	#likes = models.ManyToManyField(Like)
-	
+	#rating = models.OneToOneField(QRating)
 	def  __unicode__(self):
-		return self.title
+		return self.text
 	def  get_absolute_url(self):
-		return '/answer/%d/' % self.pk
+		return '/answer/%d/' % self.id
 
 	class  Meta:
 		db_table = 'answer'
