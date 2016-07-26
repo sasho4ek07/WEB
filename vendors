@@ -17,6 +17,7 @@
 
 # C deps
 #  https://github.com/joyent/node
+- ^ask/static/admin/
 - ^deps/
 - ^tools/
 - (^|/)configure$
